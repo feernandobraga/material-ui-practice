@@ -21,13 +21,6 @@ const MainTable = () => {
 
   return (
     <>
-      <h1>My Table</h1>
-
-      {/* {clients.map((client) => {
-        console.log(client.clientName);
-        return <p>{client.clientName}</p>;
-      })} */}
-
       <Table>
         <TableHead>
           <TableRow>
@@ -39,6 +32,7 @@ const MainTable = () => {
             <TableCell align="left">Website</TableCell>
           </TableRow>
         </TableHead>
+
         <TableBody>
           {clients.map((client) => (
             <TableRow key={client.clientId}>

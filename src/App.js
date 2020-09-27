@@ -2,6 +2,7 @@ import { Button } from "@material-ui/core";
 import React from "react";
 import { Grid } from "@material-ui/core";
 import Header from "./components/Header";
+import Content from "./components/Content";
 
 function App() {
   return (
@@ -15,7 +16,7 @@ function App() {
 
         <Grid item xs={2} />
         <Grid item xs={8}>
-          MAIN
+          <Content />
         </Grid>
         <Grid item xs={2} />
       </Grid>

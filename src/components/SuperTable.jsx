@@ -16,12 +16,11 @@ import Paper from "@material-ui/core/Paper";
 import Checkbox from "@material-ui/core/Checkbox";
 import IconButton from "@material-ui/core/IconButton";
 import Tooltip from "@material-ui/core/Tooltip";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Switch from "@material-ui/core/Switch";
 import DeleteIcon from "@material-ui/icons/Delete";
 import FilterListIcon from "@material-ui/icons/FilterList";
 import api from "../services/api";
-import { red } from "@material-ui/core/colors";
+import { Button } from "@material-ui/core";
+import EditIcon from "@material-ui/icons/Edit";
 
 function createData(name, calories, fat, carbs, protein) {
   return { name, calories, fat, carbs, protein };
@@ -81,6 +80,7 @@ const headCells = [
   { id: "industry", numeric: false, disablePadding: false, label: "Industry" },
   { id: "poc", numeric: false, disablePadding: false, label: "Point of Contact" },
   { id: "website", numeric: false, disablePadding: false, label: "Website" },
+  { id: "action", numeric: false, disablePadding: false, label: "" },
 ];
 
 function EnhancedTableHead(props) {
@@ -99,7 +99,7 @@ function EnhancedTableHead(props) {
 
   return (
     <TableHead>
-      <TableRow>
+      <TableRow className={classes.header}>
         <TableCell padding="checkbox">
           <Checkbox
             indeterminate={numSelected > 0 && numSelected < rowCount}
@@ -160,6 +160,9 @@ const useToolbarStyles = makeStyles((theme) => ({
         },
   title: {
     flex: "1 1 100%",
+  },
+  header: {
+    backgroundColor: " #f5f7fa",
   },
 }));
 
@@ -228,6 +231,9 @@ const useStyles = makeStyles((theme) => ({
   },
   table: {
     minWidth: 750,
+  },
+  header: {
+    backgroundColor: " #f5f7fa",
   },
   visuallyHidden: {
     border: 0,
@@ -325,7 +331,11 @@ export default function SuperTable() {
       </Typography>
 
       <Paper className={classes.paper}>
-        <EnhancedTableToolbar numSelected={selected.length} userSelected={selected} />
+        <EnhancedTableToolbar
+          numSelected={selected.length}
+          userSelected={selected}
+          className={classes.header}
+        />
 
         <TableContainer>
           <Table className={classes.table}>
@@ -366,6 +376,11 @@ export default function SuperTable() {
                       <TableCell align="left">{row.clientIndustry}</TableCell>
                       <TableCell align="left">{row.clientPocName}</TableCell>
                       <TableCell align="left">{row.clientWebsite}</TableCell>
+                      <TableCell align="left">
+                        <Button variant="outlined" color="primary">
+                          <EditIcon />
+                        </Button>
+                      </TableCell>
                     </TableRow>
                   );
                 })}

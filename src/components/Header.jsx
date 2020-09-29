@@ -1,11 +1,8 @@
 import {
   Button,
-  FilledInput,
   Grid,
-  Input,
   InputAdornment,
   OutlinedInput,
-  TextField,
   Typography,
 } from "@material-ui/core";
 import React from "react";
@@ -13,7 +10,6 @@ import AddIcon from "@material-ui/icons/Add";
 import SearchIcon from "@material-ui/icons/Search";
 import { FilterList } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/styles";
-import { flexbox } from "@material-ui/system";
 
 const useStyles = makeStyles(() => ({
   management: {
@@ -47,6 +43,7 @@ const useStyles = makeStyles(() => ({
   inputSearch: {
     width: 300,
     height: 48,
+    backgroundColor: "white",
   },
 
   btn: {
@@ -54,6 +51,7 @@ const useStyles = makeStyles(() => ({
     paddingLeft: 26,
     marginLeft: 24,
     height: 48,
+    backgroundColor: "white",
   },
 }));
 
@@ -61,24 +59,15 @@ const Header = () => {
   const classes = useStyles();
   return (
     <Grid container className={classes.header}>
-      {/** red */}
-
       <Grid container item direction="column" xs={8}>
-        {/** blue left*/}
-
         <Grid container item direction="column">
-          {/** green */}
           <Typography className={classes.management} variant="caption">
             MANAGEMENT
           </Typography>
           <Typography className={classes.clients}>Clients</Typography>
-
-          {/** end green */}
         </Grid>
 
         <Grid container item className={classes.actionGrid}>
-          {/** green */}
-
           <OutlinedInput
             placeholder="Search"
             className={classes.inputSearch}
@@ -96,15 +85,10 @@ const Header = () => {
           <Button variant="outlined" className={classes.btn}>
             CLEAR
           </Button>
-
-          {/** end green */}
         </Grid>
-
-        {/** end blue left*/}
       </Grid>
 
       <Grid container item direction="column" xs={4} className={classes.rightBtnGroup}>
-        {/** blue right */}
         <Button variant="contained" color="primary">
           <AddIcon />
           New Client
@@ -114,11 +98,7 @@ const Header = () => {
           <FilterList />
           Show Filter
         </Button>
-
-        {/** end blue right */}
       </Grid>
-
-      {/** end red */}
     </Grid>
   );
 };

@@ -6,43 +6,14 @@ import ResponsiveHeader from "./components/ResponsiveHeader";
 
 function App() {
   return (
-    // <Grid container direction="column">
-    //   <Grid item container>
-    //     <Grid item xs={2} />
-    //     <Grid item xs={8}>
-    //       <Header />
-    //     </Grid>
-    //     <Grid item xs={2} />
-
-    //     <Grid item xs={2} />
-    //     <Grid item xs={8}>
-    //       <Content />
-    //     </Grid>
-    //     <Grid item xs={2} />
-    //   </Grid>
-    // </Grid>
     <Grid container direction="column" alignItems="center" justify="center">
-      <Grid
-        container
-        item
-        md={12}
-        lg={8}
-        justify="center"
-      >
+      <Grid container item md={12} lg={8} justify="center">
         <ResponsiveHeader />
       </Grid>
 
-      <Grid
-        container
-        item
-        md={12}
-        lg={8}
-        justify="center"
-      >
+      <Grid container item md={12} lg={8} justify="center">
         <Content />
       </Grid>
-
-      
     </Grid>
   );
 }

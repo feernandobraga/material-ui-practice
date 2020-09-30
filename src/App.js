@@ -1,6 +1,6 @@
 import React from "react";
 import { Grid } from "@material-ui/core";
-import Header from "./components/Header";
+
 import Content from "./components/Content";
 import ResponsiveHeader from "./components/ResponsiveHeader";
 
@@ -24,21 +24,25 @@ function App() {
     <Grid container direction="column" alignItems="center" justify="center">
       <Grid
         container
-        direction="row"
         item
-        // spacing={2}
-        // xs={12}
-        // sm={12}
         md={12}
         lg={8}
         justify="center"
-        // alignItems="center"
-        // style={{ background: "red" }}
       >
         <ResponsiveHeader />
       </Grid>
 
-      <Content />
+      <Grid
+        container
+        item
+        md={12}
+        lg={8}
+        justify="center"
+      >
+        <Content />
+      </Grid>
+
+      
     </Grid>
   );
 }

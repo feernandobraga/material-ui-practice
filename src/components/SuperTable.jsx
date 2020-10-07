@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import clsx from "clsx";
 import { lighten, makeStyles } from "@material-ui/core/styles";
@@ -18,7 +18,6 @@ import IconButton from "@material-ui/core/IconButton";
 import Tooltip from "@material-ui/core/Tooltip";
 import DeleteIcon from "@material-ui/icons/Delete";
 import FilterListIcon from "@material-ui/icons/FilterList";
-import api from "../services/api";
 import { Button } from "@material-ui/core";
 import EditIcon from "@material-ui/icons/Edit";
 
@@ -231,23 +230,24 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SuperTable() {
+export default function SuperTable(props) {
   const classes = useStyles();
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("calories");
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
-  // const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const dense = false;
 
-  const [clients, setClients] = useState([]);
+  // const [clients, setClients] = useState([]);
 
-  useEffect(() => {
-    api.get().then((response) => {
-      setClients(response.data);
-    });
-  }, []);
+  // useEffect(() => {
+  //   api.get().then((response) => {
+  //     setClients(response.data);
+  //   });
+  // }, []);
+
+  const clients = props.data;
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";

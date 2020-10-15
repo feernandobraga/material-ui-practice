@@ -11,6 +11,7 @@ import AddIcon from "@material-ui/icons/Add";
 import { FilterList } from "@material-ui/icons";
 
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles(() => ({
   management: {
@@ -108,10 +109,12 @@ const ResponsiveHeader = (props) => {
       <Grid item sm={2} xs={12}>
         <Grid container item direction="column" alignItems="center">
           <Grid item>
-            <Button variant="contained" color="primary" style={{ marginBottom: 8 }}>
-              <AddIcon />
-              New Client
-            </Button>
+            <Link to="client/new">
+              <Button variant="contained" color="primary" style={{ marginBottom: 8 }}>
+                <AddIcon />
+                New Client
+              </Button>
+            </Link>
           </Grid>
 
           <Grid item>

@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Grid } from "@material-ui/core";
 
-import ResponsiveHeader from "./components/ResponsiveHeader";
-import SuperTable from "./components/SuperTable";
-import api from "./services/api";
+import ResponsiveHeader from "../../components/ResponsiveHeader";
+import SuperTable from "../../components/SuperTable";
+import api from "../../services/api";
 
-function App() {
+function Dashboard() {
   const [clients, setClients] = useState([]);
   const [tableData, setTableData] = useState([]);
 
@@ -41,4 +41,4 @@ function App() {
   );
 }
 
-export default App;
+export default Dashboard;

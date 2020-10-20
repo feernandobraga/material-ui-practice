@@ -6,6 +6,9 @@ import Routes from "./routes";
 import { createMuiTheme } from "@material-ui/core/styles";
 import { BrowserRouter } from "react-router-dom";
 
+import { ToastContainer, Slide } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 const theme = createMuiTheme({
   palette: {
     primary: {
@@ -21,6 +24,7 @@ ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
       <ThemeProvider theme={theme}>
+        <ToastContainer position="top-right" autoClose={3500} transition={Slide} />
         <Routes />
       </ThemeProvider>
     </BrowserRouter>

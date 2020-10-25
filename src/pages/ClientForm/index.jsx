@@ -15,6 +15,8 @@ import { teal } from "@material-ui/core/colors";
 import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useState } from "react";
+import axios from "axios";
+import { v4 as uuidv4 } from "uuid";
 
 const ClientForm = () => {
   const [formData, setFormData] = useState({
@@ -63,14 +65,48 @@ const ClientForm = () => {
     return Object.keys(_formErrors).length === 0;
   };
 
+  async function postFormData() {
+    // console.log(formData);
+
+    const postData = {
+      tenantId: uuidv4(),
+      clientName: formData.clientName,
+      clientWorkPhone: formData.workPhoneNumber,
+      clientPersonalPhone: formData.personalPhoneNumber,
+      clientPocName: formData.personalPhoneNumber,
+      clientIndustry: formData.industry,
+      clientFax: formData.fax,
+      clientEmail: formData.emailAddress,
+      clientWebsite: formData.website,
+      clientAddress: formData.address,
+      clientContract: formData.contract,
+      clientAvatarURL: formData.avatarUrl,
+      facebook: formData.facebook,
+      instagram: formData.instagram,
+      twitter: formData.twitter,
+    };
+
+    try {
+      await axios.post(
+        "http://javareesbyapi-env.eba-rtdeyeqd.ap-southeast-2.elasticbeanstalk.com/api/v1/addclient/",
+        postData
+      );
+      toast.success("Form successfully submitted!");
+      history.push("/");
+    } catch (err) {
+      console.warn(err); //failed to fetch
+      toast.error("Your form was not submitted, please try again.");
+    }
+  }
+
   const handleOnSubmitForm = (event) => {
     event.preventDefault();
+
     if (!isFormValid()) {
       toast.error("Please fix fields in red");
       return;
     }
-
-    toast.success("Form successfully submitted!");
+    postFormData();
   };
 
   return (
@@ -154,6 +190,9 @@ const ClientForm = () => {
                   label="Address"
                   variant="outlined"
                   fullWidth
+                  name="address"
+                  value={formData.address || ""}
+                  onChange={handleOnChange}
                 />
               </Grid>
 
@@ -163,6 +202,9 @@ const ClientForm = () => {
                   label="Personal Phone Number"
                   variant="outlined"
                   fullWidth
+                  name="personalPhoneNumber"
+                  value={formData.personalPhoneNumber || ""}
+                  onChange={handleOnChange}
                 />
               </Grid>
             </Grid>
@@ -176,11 +218,22 @@ const ClientForm = () => {
                   label="Point of Contact"
                   variant="outlined"
                   fullWidth
+                  name="pointOfContact"
+                  value={formData.pointOfContact || ""}
+                  onChange={handleOnChange}
                 />
               </Grid>
 
               <Grid item sm={4} xs={12} md={3}>
-                <TextField id="outlined-basic" label="Fax" variant="outlined" fullWidth />
+                <TextField
+                  id="outlined-basic"
+                  label="Fax"
+                  variant="outlined"
+                  fullWidth
+                  name="fax"
+                  value={formData.fax || ""}
+                  onChange={handleOnChange}
+                />
               </Grid>
             </Grid>
             {/* END PoC/Fax row */}
@@ -193,6 +246,9 @@ const ClientForm = () => {
                   label="Industry"
                   variant="outlined"
                   fullWidth
+                  name="industry"
+                  value={formData.industry || ""}
+                  onChange={handleOnChange}
                 />
               </Grid>
 
@@ -202,6 +258,9 @@ const ClientForm = () => {
                   label="Contract"
                   variant="outlined"
                   fullWidth
+                  name="contract"
+                  value={formData.contract || ""}
+                  onChange={handleOnChange}
                 />
               </Grid>
             </Grid>
@@ -216,7 +275,14 @@ const ClientForm = () => {
                 </Grid>
 
                 <Grid item sm={11} xs={11}>
-                  <TextField id="outlined-basic" label="Website" fullWidth />
+                  <TextField
+                    id="outlined-basic"
+                    label="Website"
+                    fullWidth
+                    name="website"
+                    value={formData.website || ""}
+                    onChange={handleOnChange}
+                  />
                 </Grid>
               </Grid>
               {/* END Website */}
@@ -228,7 +294,14 @@ const ClientForm = () => {
                 </Grid>
 
                 <Grid item sm={11} xs={11}>
-                  <TextField id="outlined-basic" label="Facebook" fullWidth />
+                  <TextField
+                    id="outlined-basic"
+                    label="Facebook"
+                    fullWidth
+                    name="facebook"
+                    value={formData.facebook || ""}
+                    onChange={handleOnChange}
+                  />
                 </Grid>
               </Grid>
               {/* END Facebook */}
@@ -244,7 +317,14 @@ const ClientForm = () => {
                 </Grid>
 
                 <Grid item sm={11} xs={11}>
-                  <TextField id="outlined-basic" label="Instagram" fullWidth />
+                  <TextField
+                    id="outlined-basic"
+                    label="Instagram"
+                    fullWidth
+                    name="instagram"
+                    value={formData.instagram || ""}
+                    onChange={handleOnChange}
+                  />
                 </Grid>
               </Grid>
               {/* END Instagram */}
@@ -256,7 +336,14 @@ const ClientForm = () => {
                 </Grid>
 
                 <Grid item sm={11} xs={11}>
-                  <TextField id="outlined-basic" label="Twitter" fullWidth />
+                  <TextField
+                    id="outlined-basic"
+                    label="Twitter"
+                    fullWidth
+                    name="twitter"
+                    value={formData.twitter || ""}
+                    onChange={handleOnChange}
+                  />
                 </Grid>
               </Grid>
               {/* END Twitter */}

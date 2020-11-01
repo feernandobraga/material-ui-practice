@@ -17,12 +17,29 @@ import { toast } from "react-toastify";
 import { useState } from "react";
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
+import { useEffect } from "react";
 
-const ClientForm = () => {
+const ClientForm = (props) => {
   const [formData, setFormData] = useState({
+    clientId: null,
+    tenantId: "",
     clientName: "",
-    emailAddress: "",
-    workPhoneNumber: "",
+    clientEmail: "",
+    clientWorkPhone: "",
+    clientPersonalPhone: "",
+    clientPocName: null,
+    clientIndustry: null,
+    clientFax: null,
+    clientWebsite: "",
+    clientAddress: "",
+    clientContract: null,
+    clientAvatarURL: null,
+    facebook: null,
+    instagram: null,
+    twitter: null,
+    linkedin: null,
+    addDate: null,
+    updateDate: "",
   });
 
   const [formErrors, setFormErrors] = useState({});
@@ -35,6 +52,17 @@ const ClientForm = () => {
     },
   });
 
+  useEffect(() => {
+    const clientID = props.match.params.clientId;
+    if (clientID) {
+      axios
+        .get(
+          `http://javareesbyapi-env.eba-rtdeyeqd.ap-southeast-2.elasticbeanstalk.com/api/v1/tenant/reesby/client/${clientID}`
+        )
+        .then((client) => setFormData(client.data));
+    }
+  }, [props.match.params.clientId]);
+
   const handleOnChange = (event) => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
   };
@@ -46,17 +74,18 @@ const ClientForm = () => {
   const isFormValid = () => {
     const _formErrors = {};
     const phoneRegex = /^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$/;
-    const emailRegex = /^[a-zA-Z0-9]+@(?:[a-zA-Z0-9]+\.)+[A-Za-z]+$/;
+    // const emailRegex = /^[a-zA-Z0-9]+@(?:[a-zA-Z0-9]+\.)+[A-Za-z]+$/;
+    const emailRegex = /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/gm;
 
     // email
-    if (!emailRegex.test(formData.emailAddress)) {
-      _formErrors.emailAddress =
+    if (!emailRegex.test(formData.clientEmail)) {
+      _formErrors.clientEmail =
         "You must enter a valid email address, i.e. example@example.com";
     }
 
     // phone number
-    if (!phoneRegex.test(formData.workPhoneNumber.replace(/ /g, ""))) {
-      _formErrors.workPhoneNumber =
+    if (!phoneRegex.test(formData.clientWorkPhone.replace(/ /g, ""))) {
+      _formErrors.clientWorkPhone =
         "Please enter a valid phone number, i.e. +61 111 111 111";
     }
 
@@ -71,12 +100,12 @@ const ClientForm = () => {
     const postData = {
       tenantId: uuidv4(),
       clientName: formData.clientName,
-      clientWorkPhone: formData.workPhoneNumber,
+      clientWorkPhone: formData.clientWorkPhone,
       clientPersonalPhone: formData.personalPhoneNumber,
       clientPocName: formData.personalPhoneNumber,
       clientIndustry: formData.industry,
       clientFax: formData.fax,
-      clientEmail: formData.emailAddress,
+      clientEmail: formData.clientEmail,
       clientWebsite: formData.website,
       clientAddress: formData.address,
       clientContract: formData.contract,
@@ -116,7 +145,7 @@ const ClientForm = () => {
           <Grid container justify="center">
             <Grid item>
               <Typography variant="h3" color="primary">
-                New Client
+                {props.match.params.clientId ? "Edit" : "New"} Client
               </Typography>
             </Grid>
           </Grid>
@@ -157,11 +186,11 @@ const ClientForm = () => {
                   required
                   variant="outlined"
                   fullWidth
-                  name="emailAddress"
-                  value={formData.emailAddress}
+                  name="clientEmail"
+                  value={formData.clientEmail}
                   onChange={handleOnChange}
-                  error={!!formErrors.emailAddress}
-                  helperText={formErrors.emailAddress}
+                  error={!!formErrors.clientEmail}
+                  helperText={formErrors.clientEmail}
                 />
               </Grid>
 
@@ -172,11 +201,11 @@ const ClientForm = () => {
                   required
                   variant="outlined"
                   fullWidth
-                  name="workPhoneNumber"
-                  value={formData.workPhoneNumber}
+                  name="clientWorkPhone"
+                  value={formData.clientWorkPhone}
                   onChange={handleOnChange}
-                  error={!!formErrors.workPhoneNumber}
-                  helperText={formErrors.workPhoneNumber}
+                  error={!!formErrors.clientWorkPhone}
+                  helperText={formErrors.clientWorkPhone}
                 />
               </Grid>
             </Grid>
@@ -191,7 +220,7 @@ const ClientForm = () => {
                   variant="outlined"
                   fullWidth
                   name="address"
-                  value={formData.address || ""}
+                  value={formData.clientAddress || ""}
                   onChange={handleOnChange}
                 />
               </Grid>
@@ -203,7 +232,7 @@ const ClientForm = () => {
                   variant="outlined"
                   fullWidth
                   name="personalPhoneNumber"
-                  value={formData.personalPhoneNumber || ""}
+                  value={formData.clientPersonalPhone || ""}
                   onChange={handleOnChange}
                 />
               </Grid>
@@ -219,7 +248,7 @@ const ClientForm = () => {
                   variant="outlined"
                   fullWidth
                   name="pointOfContact"
-                  value={formData.pointOfContact || ""}
+                  value={formData.clientPocName || ""}
                   onChange={handleOnChange}
                 />
               </Grid>
@@ -231,7 +260,7 @@ const ClientForm = () => {
                   variant="outlined"
                   fullWidth
                   name="fax"
-                  value={formData.fax || ""}
+                  value={formData.clientFax || ""}
                   onChange={handleOnChange}
                 />
               </Grid>
@@ -247,7 +276,7 @@ const ClientForm = () => {
                   variant="outlined"
                   fullWidth
                   name="industry"
-                  value={formData.industry || ""}
+                  value={formData.clientIndustry || ""}
                   onChange={handleOnChange}
                 />
               </Grid>
@@ -259,7 +288,7 @@ const ClientForm = () => {
                   variant="outlined"
                   fullWidth
                   name="contract"
-                  value={formData.contract || ""}
+                  value={formData.clientContract || ""}
                   onChange={handleOnChange}
                 />
               </Grid>
@@ -280,7 +309,7 @@ const ClientForm = () => {
                     label="Website"
                     fullWidth
                     name="website"
-                    value={formData.website || ""}
+                    value={formData.clientWebsite || ""}
                     onChange={handleOnChange}
                   />
                 </Grid>

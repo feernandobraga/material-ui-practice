@@ -20,6 +20,7 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import FilterListIcon from "@material-ui/icons/FilterList";
 import { Button } from "@material-ui/core";
 import EditIcon from "@material-ui/icons/Edit";
+import { useHistory } from "react-router-dom";
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -232,6 +233,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SuperTable(props) {
   const classes = useStyles();
+  const history = useHistory();
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("calories");
   const [selected, setSelected] = React.useState([]);
@@ -293,6 +295,11 @@ export default function SuperTable(props) {
     setPage(0);
   };
 
+  const handleEditClient = (clientId) => {
+    console.log(clientId);
+    history.push(`/client/${clientId}`);
+  };
+
   const isSelected = (name) => selected.indexOf(name) !== -1;
 
   const emptyRows =
@@ -339,7 +346,7 @@ export default function SuperTable(props) {
                   return (
                     <TableRow
                       hover
-                      onClick={(event) => handleClick(event, row.clientName)}
+                      onChange={(event) => handleClick(event, row.clientName)}
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
@@ -359,7 +366,7 @@ export default function SuperTable(props) {
                       <TableCell align="left">{row.clientWebsite}</TableCell>
                       <TableCell align="left">
                         <Button variant="outlined" color="primary">
-                          <EditIcon />
+                          <EditIcon onClick={() => handleEditClient(row.clientId)} />
                         </Button>
                       </TableCell>
                     </TableRow>

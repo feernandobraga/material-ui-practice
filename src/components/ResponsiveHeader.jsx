@@ -109,7 +109,7 @@ const ResponsiveHeader = (props) => {
       <Grid item sm={2} xs={12}>
         <Grid container item direction="column" alignItems="center">
           <Grid item>
-            <Link to="client/new">
+            <Link to="client">
               <Button variant="contained" color="primary" style={{ marginBottom: 8 }}>
                 <AddIcon />
                 New Client

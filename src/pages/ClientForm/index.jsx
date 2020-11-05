@@ -4,7 +4,7 @@ import {
   Grid,
   TextField,
   ThemeProvider,
-  Typography,
+  Typography
 } from "@material-ui/core";
 import React from "react";
 import LanguageIcon from "@material-ui/icons/Language";
@@ -27,19 +27,19 @@ const ClientForm = (props) => {
     clientEmail: "",
     clientWorkPhone: "",
     clientPersonalPhone: "",
-    clientPocName: null,
-    clientIndustry: null,
-    clientFax: null,
+    clientPocName: "",
+    clientIndustry: "",
+    clientFax: "",
     clientWebsite: "",
     clientAddress: "",
-    clientContract: null,
-    clientAvatarURL: null,
-    facebook: null,
-    instagram: null,
-    twitter: null,
-    linkedin: null,
-    addDate: null,
-    updateDate: "",
+    clientContract: "",
+    clientAvatarURL: "",
+    facebook: "",
+    instagram: "",
+    twitter: "",
+    linkedin: "",
+    addDate: "",
+    updateDate: ""
   });
 
   const [formErrors, setFormErrors] = useState({});
@@ -48,8 +48,8 @@ const ClientForm = (props) => {
 
   const theme = createMuiTheme({
     palette: {
-      primary: teal,
-    },
+      primary: teal
+    }
   });
 
   useEffect(() => {
@@ -112,7 +112,7 @@ const ClientForm = (props) => {
       clientAvatarURL: formData.avatarUrl,
       facebook: formData.facebook,
       instagram: formData.instagram,
-      twitter: formData.twitter,
+      twitter: formData.twitter
     };
 
     try {
@@ -219,7 +219,7 @@ const ClientForm = (props) => {
                   label="Address"
                   variant="outlined"
                   fullWidth
-                  name="address"
+                  name="clientAddress"
                   value={formData.clientAddress || ""}
                   onChange={handleOnChange}
                 />
@@ -231,7 +231,7 @@ const ClientForm = (props) => {
                   label="Personal Phone Number"
                   variant="outlined"
                   fullWidth
-                  name="personalPhoneNumber"
+                  name="clientPersonalPhone"
                   value={formData.clientPersonalPhone || ""}
                   onChange={handleOnChange}
                 />
@@ -247,7 +247,7 @@ const ClientForm = (props) => {
                   label="Point of Contact"
                   variant="outlined"
                   fullWidth
-                  name="pointOfContact"
+                  name="clientPocName"
                   value={formData.clientPocName || ""}
                   onChange={handleOnChange}
                 />
@@ -259,7 +259,7 @@ const ClientForm = (props) => {
                   label="Fax"
                   variant="outlined"
                   fullWidth
-                  name="fax"
+                  name="clientFax"
                   value={formData.clientFax || ""}
                   onChange={handleOnChange}
                 />
@@ -275,7 +275,7 @@ const ClientForm = (props) => {
                   label="Industry"
                   variant="outlined"
                   fullWidth
-                  name="industry"
+                  name="clientIndustry"
                   value={formData.clientIndustry || ""}
                   onChange={handleOnChange}
                 />
@@ -287,7 +287,7 @@ const ClientForm = (props) => {
                   label="Contract"
                   variant="outlined"
                   fullWidth
-                  name="contract"
+                  name="clientContract"
                   value={formData.clientContract || ""}
                   onChange={handleOnChange}
                 />
@@ -308,7 +308,7 @@ const ClientForm = (props) => {
                     id="outlined-basic"
                     label="Website"
                     fullWidth
-                    name="website"
+                    name="clientWebsite"
                     value={formData.clientWebsite || ""}
                     onChange={handleOnChange}
                   />
